@@ -1,0 +1,19 @@
+---
+host: 'example.com'
+allowed_domains: ['example.com']
+start_urls: ['example.com']
+rules:
+ - pattern: 'example.com'
+   page_type: leaf
+   selectors:
+    - type: xpath
+      field: name
+      pattern: //a/@href
+    - type: xpath
+      field: date
+      pattern: //a/@href
+ - pattern: 'example.com'
+   page_type: dir
+   selectors:
+    - type: xpath
+      pattern: //a/@href
