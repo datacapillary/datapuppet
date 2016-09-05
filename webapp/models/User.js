@@ -7,7 +7,6 @@ const userSchema = new mongoose.Schema({
   password: String,
   passwordResetToken: String,
   passwordResetExpires: Date,
-
   profile: {
     name: { type: String, default: '' },
     gender: { type: String, default: '' },
