@@ -36,7 +36,8 @@
     "passport-openid": "^0.4.0",
     "paypal-rest-sdk": "^1.6.9",
     "request": "^2.73.0",
-    "validator": "^5.4.0"
+    "validator": "^5.4.0",
+    "node-uuid": "^1.4.7"
   },
   "devDependencies": {
     "chai": "^3.5.0",
