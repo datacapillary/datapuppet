@@ -1,27 +1,31 @@
 const mongoose = require('mongoose');
+const uuid = require('node-uuid');
 
-const urlSchema = new mongoose.Schema({
-  _id: { type: String, required: true, index: { unique: true } },
-  url: { type: String },
-  redirects_to: { type: String },
+const hostSchema = new mongoose.Schema({
+  _id: { type: String, default: uuid.v1, index: { unique: true }},
+  domain: { type: String, index: { unique: true }},
 
-  host_id: { type: String, index: true },
-  rule_id: { type: String },
-  failure_count: { type: Number },
-  retries: { type: Number },
-
-  error: {
-    response_body: { type: String },
-    response_code: { type: Number },
-    details: { type: String }
+  setting: {
+    owner: { type: String },
+    encode: { type: String },
+    priority: { type: Number },
+    daily_limit: { type: Number, default: 50000 },
+    crawl_interval: { type: Number, default: 10000 }
   },
 
-  history: [{
-    timestamp: { type: String },
-    event_type: { type: String },
-    response_code: { type: Number }
+  rules: [{
+    rule_id: { type: String },
+    page_type: { type: String },
+    active: { type: Boolean },
+    pattern: { type: String },
+    selectors: [{
+      type: { type: String },
+      field: { type: String },
+      pattern: { type: String },
+      active: { type: Boolean }
+    }]
   }]
 }, { timestamps: true });
 
-const Url = mongoose.model('Url', urlSchema);
-module.exports = Url;
+const Host = mongoose.model('Host', hostSchema);
+module.exports = Host;

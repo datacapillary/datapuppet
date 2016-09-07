@@ -6,13 +6,11 @@
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      a.navbar-brand(href='/')
-        i.fa.fa-cube
-        | Data Puppet
+      a.navbar-brand(href='/') Data Puppet
     .collapse.navbar-collapse
       ul.nav.navbar-nav
-        li(class=(title == 'Hosts') ? 'active' : undefined)
-          a(href='/') Hosts
+        li(class=(title == 'Host') ? 'active' : undefined)
+          a(href='/host') Host
         li(class=(title == 'Report') ? 'active' : undefined)
           a(href='/report') Report
       ul.nav.navbar-nav.navbar-right
