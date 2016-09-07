@@ -9,11 +9,16 @@
       a.navbar-brand(href='/') Data Puppet
     .collapse.navbar-collapse
       ul.nav.navbar-nav
-        li(class=(title == 'Host') ? 'active' : undefined)
-          a(href='/host') Host
+        li
+          .form.navbar-form(role="search")
+            .input-group
+               input.form-control#nav-search(type="text", placeholder="Search Host", name="nav-search")
+               .input-group-btn
+                 button.btn.btn-default(type="submit")
+                   i.fa.fa-search
+      ul.nav.navbar-nav.navbar-right
         li(class=(title == 'Report') ? 'active' : undefined)
           a(href='/report') Report
-      ul.nav.navbar-nav.navbar-right
         if !user
           li(class=(title == 'Login') ? 'active' : undefined)
             a(href='/login') Log In

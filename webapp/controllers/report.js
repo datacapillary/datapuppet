@@ -7,20 +7,12 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-/**
- * GET /contact
- * Contact form page.
- */
 exports.getReport = (req, res) => {
   res.render('report', {
     title: 'report'
   });
 };
 
-/**
- * POST /contact
- * Send a contact form via Nodemailer.
- */
 exports.postReport = (req, res) => {
   req.assert('title', 'Title cannot be blank').notEmpty();
   req.assert('message', 'Message cannot be blank').notEmpty();

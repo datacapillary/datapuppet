@@ -74,6 +74,7 @@ exports.getSignup = (req, res) => {
  * Create a new local account.
  */
 exports.postSignup = (req, res, next) => {
+  req.assert('username', 'Username is not valid').len(4);
   req.assert('email', 'Email is not valid').isEmail();
   req.assert('password', 'Password must be at least 4 characters long').len(4);
   req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
@@ -87,13 +88,14 @@ exports.postSignup = (req, res, next) => {
   }
 
   const user = new User({
+    username: req.body.username,
     email: req.body.email,
     password: req.body.password
   });
 
-  User.findOne({ email: req.body.email }, (err, existingUser) => {
+  User.findOne({ username: req.body.username }, (err, existingUser) => {
     if (existingUser) {
-      req.flash('errors', { msg: 'Account with that email address already exists.' });
+      req.flash('errors', { msg: 'Account with that username already exists.' });
       return res.redirect('/signup');
     }
     user.save((err) => {

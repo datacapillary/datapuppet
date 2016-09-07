@@ -1,0 +1,12 @@
+.list-group
+  span.list-group-item.active
+    !{host.domain}
+  a.list-group-item(href="/host/" + host.id)
+    i.fa.fa-cog
+    | Settings
+  a.list-group-item(href="/host/" + host.id + "/crawl")
+    i.fa.fa-info-circle
+    | Crawl Pattern
+  a.list-group-item(href="/host/" + host.id + "/extract")
+    i.fa.fa-files-o
+    | Extract Pattern

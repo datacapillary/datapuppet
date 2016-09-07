@@ -10,21 +10,50 @@ function validate(req) {
   return req.validationErrors();
 }
 
-exports.getEdit = (req, res) => {
+exports.index = (req, res) => {
   Host.findOne({'_id': req.params.id}, function(err, host) {
-    if (err) { req.flash('errors', 'Host ' + req.params.id + ' not found.'); }
-    res.render('host/edit', {
-      title: host.id,
+    if (err) {
+      req.flash('errors', { msg:  'Host ' + req.params.id + ' not found.'});
+    }
+
+    res.render('host/index', {
+      title: "Edit Host",
       host: host
     })
   });
 };
 
-exports.postEdit = (req, res) => {
+exports.getCrawl = (req, res) => {
+  Host.findOne({'_id': req.params.id}, function(err, host) {
+    if (err) {
+      req.flash('errors', { msg:  'Host ' + req.params.id + ' not found.'});
+    }
+
+    res.render('host/crawl', {
+      title: "Edit Host",
+      host: host
+    })
+  })
+}
+
+exports.getExtract = (req, res) => {
+  Host.findOne({'_id': req.params.id}, function(err, host) {
+    if (err) {
+      req.flash('errors', { msg:  'Host ' + req.params.id + ' not found.'});
+    }
+
+    res.render('host/extract', {
+      title: "Edit Host",
+      host: host
+    })
+  })
+}
+
+exports.postUpdate = (req, res) => {
   const errors = validate(req);
   if (errors) {
     req.flash('errors', errors);
-    return res.redirect('/login');
+    return res.redirect('/');
   }
 
   const updatedData = {
@@ -39,12 +68,11 @@ exports.postEdit = (req, res) => {
 
   Host.findOneAndUpdate({'_id': req.params.id}, updatedData, {new: true}, function(err, host) {
     if (err) {
-      req.flash('errors', 'Host ' + req.params.id + ' not found.');
+      req.flash('errors', { msg: 'Host ' + req.params.id + ' not found.'});
     } else {
-      req.flash('infos', 'Host ' + req.params.id + ' has been updated successfully.');
+      req.flash('info', { msg: 'Host ' + req.params.id + ' has been updated successfully.'});
     }
 
-    console.log(host);
     res.render('host/edit', {
       title: req.params.id,
       host: host
@@ -53,9 +81,19 @@ exports.postEdit = (req, res) => {
 }
 
 exports.getCreate = (req, res) => {
+  const defaultHost = new Host({
+    owner: req.user.username,
+    setting: {
+      priority: 3,
+      encode: 'UTF8',
+      daily_limit: 5000,
+      crawl_interval: 10000
+    }
+  });
+
   res.render('host/create', {
     title: 'New Host',
-    currentUser: "Shu Dong"
+    host: defaultHost
   });
 }
 
@@ -69,9 +107,9 @@ exports.postCreate = (req, res, next) => {
 
   const host = new Host({
     domain: req.body.domain,
+    owner: req.body.owner,
     setting: {
       priority: req.body.priority,
-      owner: req.body.owner,
       encode: req.body.encode,
       daily_limit: req.body.daily_limit,
       crawl_interval: req.body.crawl_interval

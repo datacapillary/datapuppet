@@ -3,7 +3,13 @@ const crypto = require('crypto');
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-  email: { type: String, unique: true },
+  username: {
+    type: String,
+    required: true,
+    index: { unique: true },
+    match: /^[0-9a-zA-Z]+$/
+  },
+  email: { type: String, unique: true, required: true, index: true },
   password: String,
   passwordResetToken: String,
   passwordResetExpires: Date,
@@ -16,9 +22,6 @@ const userSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-/**
- * Password hash middleware.
- */
 userSchema.pre('save', function (next) {
   const user = this;
   if (!user.isModified('password')) { return next(); }
@@ -32,18 +35,12 @@ userSchema.pre('save', function (next) {
   });
 });
 
-/**
- * Helper method for validating user's password.
- */
 userSchema.methods.comparePassword = function (candidatePassword, cb) {
   bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
     cb(err, isMatch);
   });
 };
 
-/**
- * Helper method for getting user's gravatar.
- */
 userSchema.methods.gravatar = function (size) {
   if (!size) {
     size = 200;

@@ -1,0 +1,23 @@
+.form-group
+  label.col-sm-3.control-label(for='priority') Priority
+  .col-sm-7
+    input.form-control(type='number', name='priority', id='priority', value="#{host.setting.priority}", autofocus, required)
+.form-group
+  label.col-sm-3.control-label(for='owner') Owner
+  .col-sm-7
+    input.form-control(type='text', name='owner', id='owner', value="#{host.owner}", autofocus, required)
+.form-group
+  label.col-sm-3.control-label(for='encode') Encoding
+  .col-sm-7
+    input.form-control(type='text', name='encode', id='encode', value="#{host.setting.encode}", autofocus, required)
+.form-group
+  label.col-sm-3.control-label(for='daily-limit') Daily Limit
+  .col-sm-7
+    input.form-control(type='number', name='daily_limit', id='daily-limit', value=host.setting.daily_limit, autofocus, required)
+.form-group
+  label.col-sm-3.control-label(for='crawl-interval') Crawl Interval(ms)
+  .col-sm-7
+    input.form-control(type='number', name='crawl_interval', id='crawl-interval', value=host.setting.crawl_interval, autofocus, required)
+.form-group
+  .col-sm-offset-3.col-sm-7
+    button.btn.btn-success(type='submit') Save
