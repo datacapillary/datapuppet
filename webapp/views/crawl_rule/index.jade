@@ -1,0 +1,30 @@
+extends ../layout
+
+block content
+ .row.host-page
+   .col-sm-4.col-md-3.sidebar
+     include ../shared/submenu
+   .host-content.col-sm-8.col-md-9
+     .page-header
+       h4 !{title}
+       a.btn-xs.btn-success.pull-right(href='/host/' + host.id + '/crawl_rule/create') Add
+     table.table.table-stripe#host-table
+       thead.thead-inverse
+         tr
+           th Id
+           th Name
+           th Page Type
+           th Pattern
+           th Actions
+       tbody
+         each rule in rules
+           tr
+             td.col-md-3
+               a(href="/host/" + host.id + "/crawl_rule/" + rule.id +"/edit") !{rule.id}
+             td.col-md-2= rule.name
+             td.col-md-2= rule.page_type
+             td.col-md-4= rule.pattern
+             td.col-md-1
+               form.form-group(action="/host/" + host.id + "/crawl_rule/delete", method='POST')
+                 input(type='hidden', name='crawl_rule_id', value=rule.id)
+                 button.btn-sm.btn-danger(type='submit') Delete

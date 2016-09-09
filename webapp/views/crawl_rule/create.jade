@@ -1,0 +1,11 @@
+extends ../layout
+
+block content
+ .row.host-page
+   .col-sm-4.col-md-3.sidebar
+     include ../shared/submenu
+   .host-content.col-sm-8.col-md-9
+     .page-header
+       h4 !{title}
+     form.form-horizontal(id='create-crawl-rule', action="/host/" + host.id + "/crawl_rule/create", method='POST')
+       include _form

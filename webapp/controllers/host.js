@@ -1,5 +1,7 @@
 const async = require('async');
 const Host = require('../models/Host');
+const CrawlRule = require('../models/CrawlRule');
+const ExtractRule = require('../models/ExtractRule');
 
 function validate(req) {
   req.assert('priority', 'Priority must be number').notEmpty().isInt();
@@ -20,19 +22,6 @@ exports.index = (req, res) => {
       title: "Edit Host",
       host: host
     })
-  });
-};
-
-exports.getCrawl = (req, res) => {
-  Host.findOne({'_id': req.params.id}, function(err, host) {
-    if (err) {
-      req.flash('errors', { msg:  'Host ' + req.params.id + ' not found.'});
-    }
-
-    res.render('host/crawl', {
-      title: "Edit Host",
-      host: host
-    })
   })
 }
 
@@ -42,14 +31,21 @@ exports.getExtract = (req, res) => {
       req.flash('errors', { msg:  'Host ' + req.params.id + ' not found.'});
     }
 
-    res.render('host/extract', {
-      title: "Edit Host",
-      host: host
-    })
+    ExtractRule.find({'crawl_rule_id': req.body.crawl_rule_id}, function(err, rules) {
+      if (err) {
+        req.flash('errors', { msg:  'No crawl Rules of host ' + req.params.id + ' found.'});
+      }
+
+      res.render('host/extract', {
+        title: "Edit Host",
+        host: host,
+        rules: rules
+      })
+    });
   })
 }
 
-exports.postUpdate = (req, res) => {
+exports.postEdit = (req, res) => {
   const errors = validate(req);
   if (errors) {
     req.flash('errors', errors);
@@ -129,7 +125,7 @@ exports.postCreate = (req, res, next) => {
 }
 
 exports.postDelete = (req, res, next) => {
-  Host.remove({ _id: req.host.id }, (err) => {
+  Host.remove({ '_id': req.body.host_id }, (err) => {
     if (err) { return next(err); }
     req.flash('info', { msg: 'Host has been deleted.' });
     res.redirect('/');

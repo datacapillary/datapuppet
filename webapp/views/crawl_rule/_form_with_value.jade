@@ -1,0 +1,19 @@
+.form-group
+  label.col-sm-3.control-label(for='name') Name
+  .col-sm-7
+    input.form-control(type='text', name='name', value='#{rule.name}' autofocus, required)
+.form-group
+  label.col-sm-3.control-label(for='page_type') Page Type
+  .col-sm-7
+    input.form-control(type='text', name='page_type', value='#{rule.page_type}', autofocus, required)
+.form-group
+  label.col-sm-3.control-label(for='pattern') Pattern
+  .col-sm-7
+    input.form-control(type='text', name='pattern', value='#{rule.pattern}', autofocus, required)
+.form-group
+  label.col-sm-3.control-label(for='exclude_pattern') Exclude Pattern
+  .col-sm-7
+    input.form-control(type='text', name='exclude_pattern', value='#{rule.exclude_pattern}', autofocus)
+.form-group
+  .col-sm-offset-3.col-sm-7
+    button.btn.btn-success(type='submit') Save

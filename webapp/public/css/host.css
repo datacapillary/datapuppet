@@ -5,3 +5,13 @@
 .host-page .fa {
   margin-right: 20px;
 }
+
+.page-header h4 {
+  display: inline;
+}
+
+.host-content .page-header {
+  margin-top: 0px;
+}
+
+
