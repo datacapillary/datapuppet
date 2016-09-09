@@ -73,7 +73,7 @@ exports.postUpdate = (req, res) => {
       req.flash('info', { msg: 'Host ' + req.params.id + ' has been updated successfully.'});
     }
 
-    res.render('host/edit', {
+    res.render('host/index', {
       title: req.params.id,
       host: host
     })
