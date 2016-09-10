@@ -6,7 +6,7 @@ block content
      include ../shared/submenu
    .host-content.col-sm-8.col-md-9
      .page-header
-       h4 !{rule.id}
+       h4 !{title}
      form.form-horizontal(id='edit-crawl-rule', action="/host/" + host.id + "/crawl_rule/edit", method='POST')
        input(type='hidden', name='host_id', value=host.id)
        input(type='hidden', name='crawl_rule_id', value=rule.id)
