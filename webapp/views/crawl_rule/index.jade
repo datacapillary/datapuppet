@@ -11,7 +11,6 @@ block content
      table.table.table-stripe#host-table
        thead.thead-inverse
          tr
-           th Id
            th Name
            th Page Type
            th Pattern
@@ -19,12 +18,12 @@ block content
        tbody
          each rule in rules
            tr
-             td.col-md-3
-               a(href="/host/" + host.id + "/crawl_rule/" + rule.id +"/edit") !{rule.id}
-             td.col-md-2= rule.name
+             td.col-md-3= rule.name
              td.col-md-2= rule.page_type
-             td.col-md-4= rule.pattern
-             td.col-md-1
+             td.col-md-5= rule.pattern
+             td.col-md-2
+               form.form-group(action="/host/" + host.id + "/crawl_rule/" + rule.id + "/edit")
+                  button.btn-xs.btn-info(type='submit') Edit
                form.form-group(action="/host/" + host.id + "/crawl_rule/delete", method='POST')
                  input(type='hidden', name='crawl_rule_id', value=rule.id)
-                 button.btn-sm.btn-danger(type='submit') Delete
+                 button.btn-xs.btn-danger(type='submit') Delete

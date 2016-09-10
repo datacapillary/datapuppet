@@ -8,9 +8,9 @@ router.get('/create', hostController.getCreate);
 router.post('/create', hostController.postCreate);
 router.post('/delete', hostController.postDelete);
 
-router.get('/:id', hostController.index);
-router.get('/:id/extract', hostController.getExtract);
+router.get('/:id/edit', hostController.getEdit);
 router.post('/:id/edit', hostController.postEdit);
+router.get('/:id/extract', hostController.getExtract);
 
 router.get('/:id/crawl_rule/index', crawlRuleController.getIndex);
 router.get('/:id/crawl_rule/create', crawlRuleController.getCreate);

@@ -12,36 +12,16 @@ function validate(req) {
   return req.validationErrors();
 }
 
-exports.index = (req, res) => {
+exports.getEdit = (req, res) => {
   Host.findOne({'_id': req.params.id}, function(err, host) {
     if (err) {
       req.flash('errors', { msg:  'Host ' + req.params.id + ' not found.'});
     }
 
-    res.render('host/index', {
+    res.render('host/edit', {
       title: "Edit Host",
       host: host
     })
-  })
-}
-
-exports.getExtract = (req, res) => {
-  Host.findOne({'_id': req.params.id}, function(err, host) {
-    if (err) {
-      req.flash('errors', { msg:  'Host ' + req.params.id + ' not found.'});
-    }
-
-    ExtractRule.find({'crawl_rule_id': req.body.crawl_rule_id}, function(err, rules) {
-      if (err) {
-        req.flash('errors', { msg:  'No crawl Rules of host ' + req.params.id + ' found.'});
-      }
-
-      res.render('host/extract', {
-        title: "Edit Host",
-        host: host,
-        rules: rules
-      })
-    });
   })
 }
 
@@ -74,6 +54,28 @@ exports.postEdit = (req, res) => {
       host: host
     })
   });
+}
+
+
+
+exports.getExtract = (req, res) => {
+  Host.findOne({'_id': req.params.id}, function(err, host) {
+    if (err) {
+      req.flash('errors', { msg:  'Host ' + req.params.id + ' not found.'});
+    }
+
+    ExtractRule.find({'crawl_rule_id': req.body.crawl_rule_id}, function(err, rules) {
+      if (err) {
+        req.flash('errors', { msg:  'No crawl Rules of host ' + req.params.id + ' found.'});
+      }
+
+      res.render('host/extract', {
+        title: "Edit Host",
+        host: host,
+        rules: rules
+      })
+    });
+  })
 }
 
 exports.getCreate = (req, res) => {
