@@ -17,8 +17,8 @@ block content
         tr
           td.col-md-4
             a(href="/host/" + host.id + "/edit") !{host.id}
-          td.col-md-4= host.domain
-          td.col-md-1= host.setting.priority
+          td.col-md-3= host.domain
+          td.col-md-2= host.setting.priority
           td.col-md-3
             form.form-group(action='/host/delete', method='POST')
               input(type='hidden', name='host_id', value=host.id)
